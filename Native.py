@@ -1,4 +1,22 @@
 import math
+x=float(input("plz enter a number of litre"))
+y=int(x/2)
+print(y)
+##################
+x = list(input("enter list").split(" "))
+y = [ -int(i) for i in x ]
+print(y)
+###################
+def centuryFromYear(year):
+    return (year) // 100 + 1
+
+print(centuryFromYear(2017))
+###################
+def Third(a,b):
+    print(180 - (a+b))
+f=int(input("enter 1st angle"))
+s=int(input("enter 2nd angle"))
+Third(f,s)
 # str=list(input("Enter a Sentence or just one word"))
 # vowels=['a','e','o','i','u']
 # notV=[i for i in str if i.lower() not in vowels]
@@ -55,10 +73,10 @@ import math
 #     Dict({i[0]:i})
 # print(Dict)
 #############################################################################################
-size=int(input("plz enter number of rows"))
-for i in range(size):
-    for j in range(1,size-i):
-        print(" ",end="")
-    for x in range(0,i+1):
-        print("*",end="")
-    print()
+# size=int(input("plz enter number of rows"))
+# for i in range(size):
+#     for j in range(1,size-i):
+#         print(" ",end="")
+#     for x in range(0,i+1):
+#         print("*",end="")
+#     print()
