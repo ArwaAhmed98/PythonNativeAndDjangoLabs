@@ -1,0 +1,15 @@
+{% extends 'djapp/base.html' %}
+{% load static %}
+
+{%  block title_block %}
+{% endblock %}
+{% block main_block %}
+<form method="POST"> {% csrf_token %}
+<!--    secuirty checks and manadatroy expression -->
+<!--    method post to prevent adding url parameters into the url -->
+    {{ form.as_p }}
+<!--    hwa keda 3ml <input type text msln django already made it for us in the model object eli 3mlnah-->
+    <button type="submit">Save</button>
+    <button type="reset">reset</button>
+</form>
+{% endblock %}

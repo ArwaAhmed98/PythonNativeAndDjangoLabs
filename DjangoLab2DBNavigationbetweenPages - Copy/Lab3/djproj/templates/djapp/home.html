@@ -1,0 +1,50 @@
+{% extends 'djapp/base.html' %}
+{% load static %}
+
+{%  block title_block %}
+<img src="{% static 'img/pc.jpg' %}" width="200px" height="200px">
+<a  class="btn btn-primary" href="{%  url 'st-add'  %}">Create Student</a>
+<!--in order to use static you must add it first @ line1    -->
+
+<h3>These are all stds in Page</h3>
+{% endblock %}
+
+
+{% block main_block %}
+
+<table border="2" class="table table-stripped">
+    <tr>
+        <th>FirstName</th>
+        <th>Lastname</th>
+         <th>Age</th>
+         <th>is_adult</th>
+        <th>actions</th>
+    </tr>
+    {% for st in all_stds %}
+    <tr>
+        <td>{{ st.fname }}</td>
+         <td>{{ st.lname }}</td>
+         <td>{{ st.age }}</td>
+<!--          <td>{{ st.is_adult }}</td>-->
+        <td>{% if st.is_adult %}
+            <svg style="color:green;"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+</svg>
+            {% else %}
+            <svg style="color:red;"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+  <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+</svg>
+            {% endif %}
+
+        </td>
+        <td><a class="btn btn-warning"  href="{% url 'show' st.id  %}">Show</a></td>
+<!--         <td><a href="djapp/show/{{st.id}}">Show</a></td>-->
+<!--        url takes the name property in html -->
+        <td><a class="btn btn-danger" href="{% url 'del' st.id %}">X</a></td>
+        <td><a href="{% url 'st-edit' st.id %}">Edit</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}

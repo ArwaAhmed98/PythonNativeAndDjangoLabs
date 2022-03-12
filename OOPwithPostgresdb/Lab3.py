@@ -1,4 +1,5 @@
 import re
+from tkinter import E
 import psycopg2
 from psycopg2 import Error
 def closeDBconn(cursor,connection):
@@ -99,7 +100,7 @@ class Employee(Person):
         finally:
             closeDBconn(cursor,connection)
 
-    def delet(self,Emp):
+    def delet(self,Empid):
         try:
             connection = psycopg2.connect(user="postgres",
                                           password="",
@@ -110,8 +111,10 @@ class Employee(Person):
             cursor = connection.cursor()
 
             # Update single record now
-            sql_delete_query = """Delete from emp where id = %s"""
-            cursor.execute(sql_delete_query, (Emp.id,))
+            # sql_delete_query = """Delete from emp where id = %%s"""
+            # # idD=(Empid)
+            # cursor.execute(sql_delete_query,idD )
+            cursor.execute(" DELETE FROM emp WHERE id = %s ", (Empid,))
             connection.commit()
             count = cursor.rowcount
             print(count, "Record deleted successfully ")
@@ -120,8 +123,9 @@ class Employee(Person):
             print("Error in Delete operation", error)
         finally:
             closeDBconn(cursor,connection)
-    def print(self,empid):
-        Myquery='SELECT * FROM emp where id={};'.format(empid)
+    def print(self):
+        # Myquery='SELECT * FROM emp where id={};'.format(empid)
+        Myquery='SELECT * FROM emp '
         try:
             # Connect to an existing database
             connection = psycopg2.connect(user="postgres",
@@ -148,6 +152,7 @@ class Employee(Person):
         #         cursor.close()
         #         connection.close()
         #         print("PostgreSQL connection is closed")
+      
 
 
 class office(Employee):
@@ -155,20 +160,23 @@ class office(Employee):
         self.name=name
         self.emps=emps
 
-    def getAllEmps(self):
-        return Employee.counter #3dad el emps
+    def getAllEmps(self,Employee):
+        # return Employee.counter #3dad el emps
+        Employee.print()
 
     def getEmpID(self,Empid):
-        Employee.print(Empid)
+        Employee.print(Employee,Empid)
+        # Employee.idPrint(Empid)
 
     def hire(self,Employee):
         Employee.insert(Employee)
-    def fire(self,Employee):
-        Employee.delet(Employee)
+    def fire(self,Empid):
+        Employee.delet(emp,Empid)
 
 q=0
 while(q==0):
-    I=input("For add new emp press 'add' for exist press q")
+    I=input("For add new emp press 'add' or 'all' or 'allid' or 'fire' for exist press q")
+    emp = Employee(1,90,'arwa@gmail.com',8,2000,1)
     if(I=='q'):
         q==1
         quit()
@@ -190,9 +198,19 @@ while(q==0):
             NOR=True
         else:
             NOR=False
-        emp = Employee(id,90,'arwa@gmail.com',8,2000,MGR or NOR)
-# emp.insert(emp)
+        emp = Employee(id,90,'arwa@gmail.com',8,2000,MGR and NOR)
+# emp.insert(emp)add
+
         offic = office(emp,name)
 # offic.hire(emp)
-        offic.hire(emp)
-# offic.print(3)
+        offic.fire(emp)
+        # offic.print(34)
+# offic.print(3)a
+    if(I=='all'):
+     office.print(emp)
+    if(I=='allid'):
+     id = int(input("please enter the id to be viewed "))
+     office.getEmpID(emp,id)
+    if(I=='fire'):
+        id = int(input("please enter the id to be fired "))
+        office.fire(emp,id)

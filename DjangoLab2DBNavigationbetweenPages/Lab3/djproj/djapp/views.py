@@ -1,4 +1,5 @@
 from django.shortcuts import render , HttpResponse
+from django.shortcuts import redirect
 from .models import Student,Track
 # Create your views here.
 def home(request):
@@ -15,6 +16,6 @@ def show(request,st_id):
     # return HttpResponse(fname)
     return render(request,'djapp/show.html',context)
 def stDEL(request,st_id):
-    st=Student.objects.get(id=st_id)
+    st=Student.objects.get(id = st_id)
     st.delete()
     return redirect('home') #bta5od url link tro7 redirect 3leh
